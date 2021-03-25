@@ -29,22 +29,4 @@ public class User {
         this.password = encoder.encode();
     }
 
-
-    // apagar esses getters
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
 }
