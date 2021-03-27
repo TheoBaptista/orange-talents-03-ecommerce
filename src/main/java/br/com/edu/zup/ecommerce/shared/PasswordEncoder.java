@@ -1,6 +1,6 @@
-package br.com.edu.zup.ecommerce.user;
+package br.com.edu.zup.ecommerce.shared;
 
-interface PasswordEncoder {
+public interface PasswordEncoder {
 
     public String encode();
     public PasswordEncoder build(String password);

@@ -1,4 +1,4 @@
-package br.com.edu.zup.ecommerce.user;
+package br.com.edu.zup.ecommerce.shared;
 
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

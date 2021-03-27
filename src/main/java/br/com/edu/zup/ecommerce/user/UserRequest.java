@@ -1,5 +1,6 @@
 package br.com.edu.zup.ecommerce.user;
 
+import br.com.edu.zup.ecommerce.shared.BCryptEncoder;
 import br.com.edu.zup.ecommerce.shared.UniqueValueConstraint;
 
 import javax.validation.constraints.Email;

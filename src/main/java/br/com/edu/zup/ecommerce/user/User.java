@@ -1,5 +1,6 @@
 package br.com.edu.zup.ecommerce.user;
 
+import br.com.edu.zup.ecommerce.shared.PasswordEncoder;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -20,7 +21,10 @@ public class User {
     @Column(nullable = false)
     private LocalDateTime registrationDate;
 
-    @Deprecated
+    /**
+     * @deprecated (Hibernate only)
+     */
+    @Deprecated(since = "0.1")
     public User() {
     }
 

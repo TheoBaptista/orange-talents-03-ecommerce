@@ -12,20 +12,23 @@ import javax.validation.Payload;
 
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy=UniqueValueValidator.class)
-public @interface UniqueValueConstraint {
+@Constraint(validatedBy= OnlyCreateIfExistValidator.class)
+public @interface OnlyCreateIfExist {
 
 	Class<?> clazz();
 	
 	String field();
 	
-
-	String message() default "This {field} already exists registered in the system";
 	
-
+	String message() default "There is no such this {field} in the system";
+	
+	
 	Class<?>[] groups() default { };
 	
-
+	
 	Class<? extends Payload>[] payload() default { };
+
+
+	
 	
 }
