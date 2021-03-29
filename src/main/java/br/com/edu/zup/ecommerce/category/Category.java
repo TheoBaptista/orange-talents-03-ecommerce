@@ -32,4 +32,5 @@ public class Category {
     public Category getParentCategory() {
         return parentCategory;
     }
+
 }

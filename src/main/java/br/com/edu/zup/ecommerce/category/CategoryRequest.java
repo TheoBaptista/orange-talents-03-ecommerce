@@ -5,7 +5,9 @@ import br.com.edu.zup.ecommerce.shared.UniqueValueConstraint;
 
 import javax.validation.constraints.NotBlank;
 
-public class CategoryRequest {
+public class
+
+CategoryRequest {
 
     private final @NotBlank @UniqueValueConstraint(clazz = Category.class,field = "name") String name;
     private final @OnlyCreateIfExist(clazz = Category.class, field = "name") String parentCategoryName;

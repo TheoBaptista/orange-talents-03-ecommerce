@@ -1,7 +1,7 @@
 package br.com.edu.zup.ecommerce.user;
 
-import br.com.edu.zup.ecommerce.shared.BCryptEncoder;
 import br.com.edu.zup.ecommerce.shared.UniqueValueConstraint;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -16,8 +16,8 @@ public class UserRequest {
         this.login = login;
         this.password = password;
     }
-    public User toUser(){
-        return new User(this.login,new BCryptEncoder(this.password));
+    public User toUser(PasswordEncoder encoder){
+        return new User(this.login, new Password(this.password,encoder));
     }
 
 }
