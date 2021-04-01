@@ -16,16 +16,18 @@ import java.util.List;
 @Entity
 public class Product {
 
-    public @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
-    public @Column(nullable = false) String name;
-    public @Column(nullable = false) @Positive @DecimalMin("10.00") BigDecimal price;
-    public @Column(nullable = false) @Min(0) Integer quantity;
-    public @Column(nullable = false) @Length(max = 10000) String description;
-    public @Column(nullable = false) @CreationTimestamp LocalDate registerDate;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    private @Column(nullable = false) String name;
+    private @Column(nullable = false) @Positive @DecimalMin("10.00") BigDecimal price;
+    private @Column(nullable = false) @Min(0) Integer quantity;
+    private @Column(nullable = false) @Length(max = 10000) String description;
+    private @Column(nullable = false) @CreationTimestamp LocalDate registerDate;
     @ManyToOne
-    public @JoinColumn(nullable = false) Category category;
+    private @JoinColumn(nullable = false) Category category;
     @ManyToMany
-    public @JoinColumn(nullable = false) List<ProductFeature> productFeatureList;
+    private @JoinColumn(nullable = false) List<ProductFeature> productFeatureList;
+
+
 
     /**
      * @deprecated (Hibernate only)
