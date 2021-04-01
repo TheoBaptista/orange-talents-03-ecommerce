@@ -42,6 +42,7 @@ public class TokenAuthFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+    //make tests here
     private String tokenRecovery(HttpServletRequest request) {
 
         String token = request.getHeader("Authorization");

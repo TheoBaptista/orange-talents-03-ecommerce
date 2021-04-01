@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ErrorHandler {
@@ -26,17 +26,9 @@ public class ErrorHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public List<ErrorValidationForm> validationHandler(MethodArgumentNotValidException exception){
 
-        List<ErrorValidationForm> errorForms = new ArrayList<>();
-
         List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 
-        fieldErrors.forEach( e -> {
-
-            String message = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-
-            errorForms.add(new ErrorValidationForm(e.getField(), message));
-        });
-        return errorForms;
+        return fieldErrors.stream().map(e -> new ErrorValidationForm(e.getField(),messageSource.getMessage(e, LocaleContextHolder.getLocale()))).collect(Collectors.toList());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

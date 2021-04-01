@@ -1,11 +1,9 @@
 package br.com.edu.zup.ecommerce.user;
 
 import br.com.edu.zup.ecommerce.auth.Role;
-import br.com.edu.zup.ecommerce.category.Category;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -35,7 +33,7 @@ public class User implements UserDetails {
     /**
      * @deprecated (Hibernate only)
      */
-    @Deprecated(since = "0.1")
+    @Deprecated(forRemoval = false)
     public User() {
     }
 

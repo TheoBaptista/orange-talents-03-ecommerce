@@ -25,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping
-    public ResponseEntity<?> autenticar(@RequestBody @Valid LoginRequest loginRequest){
+    public ResponseEntity<?> authenticate(@RequestBody @Valid LoginRequest loginRequest){
 
         UsernamePasswordAuthenticationToken loginData = loginRequest.converterTo();
 
@@ -36,7 +36,7 @@ public class AuthController {
 
 
         } catch (AuthenticationException e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
 
 
