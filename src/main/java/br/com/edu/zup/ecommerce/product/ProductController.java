@@ -5,7 +5,9 @@ import br.com.edu.zup.ecommerce.category.CategoryRepository;
 import br.com.edu.zup.ecommerce.product.feature.ProductFeature;
 import br.com.edu.zup.ecommerce.product.feature.ProductFeatureRepository;
 import br.com.edu.zup.ecommerce.product.feature.UniqueFeatureNameConstraintValidator;
+import br.com.edu.zup.ecommerce.user.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,12 +46,14 @@ public class ProductController {
         List<ProductFeature> productsFeatures = newProduct.getProductsFeatures();
         Category category = categoryRepository.findByName(newProduct.getCategoryName());
 
-        Product product = newProduct.toProduct(category,productsFeatures);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Product product = newProduct.toProduct(category,productsFeatures,user);
 
         productFeatureRepository.saveAll(productsFeatures);
         productRepository.save(product);
 
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok().build();
     }
 
 }

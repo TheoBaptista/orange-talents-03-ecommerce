@@ -4,6 +4,7 @@ import br.com.edu.zup.ecommerce.category.Category;
 import br.com.edu.zup.ecommerce.product.feature.ProductFeature;
 import br.com.edu.zup.ecommerce.product.feature.ProductFeatureRequest;
 import br.com.edu.zup.ecommerce.shared.OnlyCreateIfExist;
+import br.com.edu.zup.ecommerce.user.User;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
@@ -56,7 +57,7 @@ public class ProductRequest {
         return productFeatureRequestList.stream().map(ProductFeatureRequest::toProductFeature).collect(Collectors.toList());
     }
 
-    public Product toProduct(Category category,List<ProductFeature> productFeatureList){
-      return new Product(this.name,this.price,this.quantity,this.description,category,productFeatureList);
+    public Product toProduct(Category category,List<ProductFeature> productFeatureList, User user){
+      return new Product(this.name,this.price,this.quantity,this.description,category,productFeatureList,user);
     }
 }
