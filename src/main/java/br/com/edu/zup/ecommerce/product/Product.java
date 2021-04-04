@@ -3,6 +3,7 @@ package br.com.edu.zup.ecommerce.product;
 import br.com.edu.zup.ecommerce.category.Category;
 import br.com.edu.zup.ecommerce.images.Image;
 import br.com.edu.zup.ecommerce.product.feature.ProductFeature;
+import br.com.edu.zup.ecommerce.question.Question;
 import br.com.edu.zup.ecommerce.user.User;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
@@ -35,6 +36,8 @@ public class Product {
     private @NotNull @ManyToOne @JoinColumn(nullable = false)  User user;
 
     private @OneToMany @JoinColumn @Cascade(org.hibernate.annotations.CascadeType.MERGE) List<Image> imageList = new ArrayList<>();
+
+    private @OneToMany(mappedBy = "product",fetch = FetchType.EAGER) @Cascade(org.hibernate.annotations.CascadeType.MERGE) List<Question> questionList = new ArrayList<>();
 
     /**
      * @deprecated (Hibernate only)
@@ -97,5 +100,13 @@ public class Product {
 
     public void setImageList(List<Image> imageList) {
         this.imageList = imageList;
+    }
+
+    public void addToQuestionList(Question question){
+        this.questionList.add(question);
+    }
+
+    public List<Question> getQuestionList() {
+        return questionList;
     }
 }

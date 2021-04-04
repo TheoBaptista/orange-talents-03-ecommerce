@@ -9,10 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails {
@@ -38,7 +35,7 @@ public class User implements UserDetails {
     }
 
     public User(@NotBlank String login,@NotNull Password password) {
-        this.login = login;
+        this.login = login.toLowerCase();
         this.password = password.getPassword();
 
     }
