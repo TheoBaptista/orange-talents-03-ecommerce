@@ -4,6 +4,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,17 +25,32 @@ public class ErrorHandler {
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ErrorValidationForm> validationHandler(MethodArgumentNotValidException exception){
+    public List<FieldErrors> validationHandler(MethodArgumentNotValidException exception){
 
-        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+        List<FieldError> errors = exception.getBindingResult().getFieldErrors();
 
-        return fieldErrors.stream().map(e -> new ErrorValidationForm(e.getField(),messageSource.getMessage(e, LocaleContextHolder.getLocale()))).collect(Collectors.toList());
+        return errors.stream()
+                .map(fieldError -> new FieldErrors(fieldError.getField(),messageSource.getMessage(fieldError, LocaleContextHolder.getLocale())))
+                .collect(Collectors.toList());
+    }
+
+    @ExceptionHandler(BindException.class)
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public List<FieldErrors> handler(BindException exception) {
+        List<FieldError> errors = exception.getBindingResult().getFieldErrors();
+
+
+
+        return errors.stream().map(fieldError -> new FieldErrors(fieldError.getField(),messageSource.getMessage(fieldError, LocaleContextHolder.getLocale())))
+                .collect(Collectors.toList());
+
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ErrorValidationForm dataIntegrityViolation(DataIntegrityViolationException exception){
-        return new ErrorValidationForm("Login","Esse login já existe no nosso sistema!");
+    public FieldErrors dataIntegrityViolation(DataIntegrityViolationException exception){
+        return new FieldErrors("Login","Esse login já existe no nosso sistema!");
     }
+
 
 }
