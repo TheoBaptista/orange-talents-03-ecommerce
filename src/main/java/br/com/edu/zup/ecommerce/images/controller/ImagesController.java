@@ -6,6 +6,7 @@ import br.com.edu.zup.ecommerce.images.repository.ImageRepository;
 import br.com.edu.zup.ecommerce.images.storage.StorageImages;
 import br.com.edu.zup.ecommerce.product.model.Product;
 import br.com.edu.zup.ecommerce.product.repository.ProductRepository;
+import br.com.edu.zup.ecommerce.shared.annotation.OnlyCreateIfExist;
 import br.com.edu.zup.ecommerce.user.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

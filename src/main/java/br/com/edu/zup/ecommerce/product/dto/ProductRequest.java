@@ -20,7 +20,7 @@ public class ProductRequest {
 
     private final @NotBlank String name;
     private final @NotNull @DecimalMin("10.00") @Positive BigDecimal price;
-    private final @NotNull @Min(0)  Integer quantity;
+    private final @NotNull @Min(0) @PositiveOrZero  Integer quantity;
     private final @NotBlank @Length(max = 1000) String description;
     private final @NotBlank @OnlyCreateIfExist(clazz = Category.class,field = "name") String categoryName;
     private final @Valid @NotNull @Size(min = 3) List<ProductFeatureRequest> productFeatureRequestList;
