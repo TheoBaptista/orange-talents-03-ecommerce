@@ -1,7 +1,7 @@
 package br.com.edu.zup.ecommerce.token;
 
-import br.com.edu.zup.ecommerce.user.model.User;
-import br.com.edu.zup.ecommerce.user.repository.UserRepository;
+import br.com.edu.zup.ecommerce.user.User;
+import br.com.edu.zup.ecommerce.user.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;

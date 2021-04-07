@@ -1,7 +1,7 @@
 package br.com.edu.zup.ecommerce.auth;
 
-import br.com.edu.zup.ecommerce.user.model.User;
-import br.com.edu.zup.ecommerce.user.repository.UserRepository;
+import br.com.edu.zup.ecommerce.user.User;
+import br.com.edu.zup.ecommerce.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

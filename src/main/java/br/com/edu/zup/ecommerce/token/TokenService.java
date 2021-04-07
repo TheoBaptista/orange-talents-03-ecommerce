@@ -1,6 +1,6 @@
 package br.com.edu.zup.ecommerce.token;
 
-import br.com.edu.zup.ecommerce.user.model.User;
+import br.com.edu.zup.ecommerce.user.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

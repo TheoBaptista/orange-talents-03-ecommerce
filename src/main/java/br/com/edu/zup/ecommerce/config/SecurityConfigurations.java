@@ -3,7 +3,7 @@ package br.com.edu.zup.ecommerce.config;
 import br.com.edu.zup.ecommerce.auth.AuthService;
 import br.com.edu.zup.ecommerce.token.TokenAuthFilter;
 import br.com.edu.zup.ecommerce.token.TokenService;
-import br.com.edu.zup.ecommerce.user.repository.UserRepository;
+import br.com.edu.zup.ecommerce.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

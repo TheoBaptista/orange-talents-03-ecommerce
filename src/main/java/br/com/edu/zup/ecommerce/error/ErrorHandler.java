@@ -52,5 +52,12 @@ public class ErrorHandler {
         return new FieldErrors("Login","Esse login já existe no nosso sistema!");
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public FieldErrors springAssertionException(IllegalArgumentException exception){
+
+        return new FieldErrors("Assert", exception.getLocalizedMessage());
+    }
+
 
 }
