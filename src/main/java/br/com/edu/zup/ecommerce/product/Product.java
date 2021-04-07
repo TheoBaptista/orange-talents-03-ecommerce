@@ -141,7 +141,6 @@ public class Product {
 
     public Boolean decreaseStock(Integer quantity) {
         if (quantity <= this.quantity) {
-            Assert.isTrue(quantity>this.quantity,"não deveria entrar nesse if");
             this.quantity -= quantity;
             return true;
         }
