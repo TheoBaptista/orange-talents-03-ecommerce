@@ -1,8 +1,8 @@
 package br.com.edu.zup.ecommerce.product;
 
-import br.com.edu.zup.ecommerce.category.Category;
-import br.com.edu.zup.ecommerce.feature.ProductFeature;
-import br.com.edu.zup.ecommerce.feature.ProductFeatureRequest;
+import br.com.edu.zup.ecommerce.product.category.Category;
+import br.com.edu.zup.ecommerce.product.feature.ProductFeature;
+import br.com.edu.zup.ecommerce.product.feature.ProductFeatureRequest;
 import br.com.edu.zup.ecommerce.shared.OnlyCreateIfExist;
 import br.com.edu.zup.ecommerce.user.User;
 import org.hibernate.validator.constraints.Length;
@@ -39,7 +39,7 @@ public class ProductRequest {
         return productFeatureRequestList;
     }
 
-    // tentar refatorar aqui
+    //3
     public Boolean haveEqualsFeatureName(){
        Set<String> featureNames = new HashSet<>();
        return !productFeatureRequestList.stream().filter(f -> !featureNames.add(f.getFeatureName().toLowerCase())).collect(Collectors.toSet()).isEmpty();
@@ -53,12 +53,15 @@ public class ProductRequest {
         return categoryName;
     }
 
-    public List<ProductFeature> getProductsFeatures(){
-        return productFeatureRequestList.stream().map(ProductFeatureRequest::toProductFeature).collect(Collectors.toList());
+    public Product toProduct(Category category,User user){
+      return new Product(this.name,this.price,this.quantity,this.description,category,user);
     }
 
-    public Product toProduct(Category category, List<ProductFeature> productFeatureList, User user){
-      return new Product(this.name,this.price,this.quantity,this.description,category,productFeatureList,user);
+    //1
+    public List<ProductFeature> toProductFeatureList(Product product){
+        return this.productFeatureRequestList.stream()
+                .map(productFeatureRequest -> new ProductFeature(productFeatureRequest.getFeatureName(), productFeatureRequest.getFeatureDescription(),product))
+                .collect(Collectors.toList());
     }
 
 }

@@ -20,7 +20,7 @@ public class ImagesRequest {
         return imagesList;
     }
 
-
+    //1
     public List<Image> toImagesList(List<String> imagesLinks){
         return imagesLinks.stream().map(Image::new).collect(Collectors.toList());
     }

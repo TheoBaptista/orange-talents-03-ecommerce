@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Component
 public class FakeStorageUploader implements StorageImages {
 
-    @Override
+    @Override //1
     public List<String> uploadImages(List<MultipartFile> images) {
           return images.stream().map(img -> UriComponentsBuilder.fromPath("products/pictures/{UUID}/{img}")
           .host("www.hostimages.com").scheme("https")

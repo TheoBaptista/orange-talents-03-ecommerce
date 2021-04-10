@@ -56,7 +56,14 @@ public class ErrorHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public FieldErrors springAssertionException(IllegalArgumentException exception){
 
-        return new FieldErrors("Assert", exception.getLocalizedMessage());
+        return new FieldErrors("Error", exception.getLocalizedMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalStateException.class)
+    public FieldErrors springAssertionException(IllegalStateException exception){
+
+        return new FieldErrors("Error", exception.getLocalizedMessage());
     }
 
 

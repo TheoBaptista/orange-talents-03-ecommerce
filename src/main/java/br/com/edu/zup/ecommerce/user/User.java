@@ -9,16 +9,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class User implements UserDetails {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private String id;
     @Column(nullable = false,unique = true)
     private String login;
     @Column(nullable = false)
@@ -38,12 +35,13 @@ public class User implements UserDetails {
     }
 
     public User(@NotBlank String login,@NotNull String password) {
+        this.id = UUID.randomUUID().toString();
         this.login = login.toLowerCase();
         this.password = Password.build().encode(password);
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

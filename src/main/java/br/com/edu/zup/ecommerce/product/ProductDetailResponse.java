@@ -1,8 +1,8 @@
 package br.com.edu.zup.ecommerce.product;
 
-import br.com.edu.zup.ecommerce.feature.ProductFeatureDetailResponse;
-import br.com.edu.zup.ecommerce.question.QuestionResponse;
-import br.com.edu.zup.ecommerce.review.ReviewResponse;
+import br.com.edu.zup.ecommerce.product.feature.ProductFeatureDetailResponse;
+import br.com.edu.zup.ecommerce.product.question.QuestionResponse;
+import br.com.edu.zup.ecommerce.product.review.ReviewResponse;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,7 +26,7 @@ public class ProductDetailResponse {
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.quantity = product.getQuantity();
-        this.noteAverage = getAverageReview(noteAverage);
+        this.noteAverage = noteAverage  ;
         this.totalReview = product.getTotalReview();
         this.productFeatureList = product.mapToProductFeatureDetailResponseList();
         this.imagesLinkList = product.mapToProductResponseImagesLink();
@@ -74,11 +74,5 @@ public class ProductDetailResponse {
         return reviewResponseList;
     }
 
-    private Double getAverageReview(Double averageReview){
-        if (averageReview == null){
-            return 0.0;
-        }
-        return averageReview;
-    }
 
-}
+    }

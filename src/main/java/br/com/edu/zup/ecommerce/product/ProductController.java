@@ -1,10 +1,10 @@
 package br.com.edu.zup.ecommerce.product;
 
-import br.com.edu.zup.ecommerce.category.Category;
-import br.com.edu.zup.ecommerce.category.CategoryRepository;
-import br.com.edu.zup.ecommerce.feature.ProductFeature;
-import br.com.edu.zup.ecommerce.feature.ProductFeatureRepository;
-import br.com.edu.zup.ecommerce.feature.UniqueFeatureNameConstraintValidator;
+import br.com.edu.zup.ecommerce.product.category.Category;
+import br.com.edu.zup.ecommerce.product.category.CategoryRepository;
+import br.com.edu.zup.ecommerce.product.feature.ProductFeature;
+import br.com.edu.zup.ecommerce.product.feature.ProductFeatureRepository;
+import br.com.edu.zup.ecommerce.product.feature.UniqueFeatureNameConstraintValidator;
 import br.com.edu.zup.ecommerce.user.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/products")
 public class ProductController {
-
+    //4
     private final UniqueFeatureNameConstraintValidator uniqueFeatureNameConstraintValidator;
     private final CategoryRepository categoryRepository;
     private final ProductRepository productRepository;
@@ -34,21 +34,20 @@ public class ProductController {
         this.productFeatureRepository = productFeatureRepository;
     }
 
-    @InitBinder
+    @InitBinder //1
     public void init(WebDataBinder webDataBinder){
         webDataBinder.addValidators(uniqueFeatureNameConstraintValidator);
     }
 
     @PostMapping
-    @Transactional
+    @Transactional //1
     public ResponseEntity<?> createProduct(@RequestBody @Valid ProductRequest newProduct, @AuthenticationPrincipal User user){
 
-        List<ProductFeature> productsFeatures = newProduct.getProductsFeatures();
         Category category = categoryRepository.findByName(newProduct.getCategoryName());
+        Product product = newProduct.toProduct(category,user);
+        List<ProductFeature> productFeatures = newProduct.toProductFeatureList(product);
 
-        Product product = newProduct.toProduct(category,productsFeatures,user);
-
-        productFeatureRepository.saveAll(productsFeatures);
+        productFeatureRepository.saveAll(productFeatures);
         productRepository.save(product);
 
         return ResponseEntity.ok().build();

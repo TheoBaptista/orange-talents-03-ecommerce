@@ -14,10 +14,10 @@ import java.io.IOException;
 
 public class TokenAuthFilter extends OncePerRequestFilter {
 
-    private final TokenService tokenService;
+    private final Token tokenService;
     private final UserRepository userRepository;
 
-    public TokenAuthFilter(TokenService tokenService, UserRepository userRepository) {
+    public TokenAuthFilter(Token tokenService, UserRepository userRepository) {
         this.tokenService = tokenService;
         this.userRepository = userRepository;
     }
@@ -36,7 +36,7 @@ public class TokenAuthFilter extends OncePerRequestFilter {
     }
 
     private void authenticateUser(String token) {
-        Long userId = tokenService.getIdUser(token);
+        String userId = tokenService.getIdUser(token);
         User user = userRepository.findById(userId).get();
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user,null,user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);

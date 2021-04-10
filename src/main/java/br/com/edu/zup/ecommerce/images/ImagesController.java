@@ -19,7 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/images")
 public class ImagesController {
-
+    //3
     private final ProductRepository productRepository;
     private final ImageRepository imageRepository;
     private final StorageImages storageImages;
@@ -31,17 +31,17 @@ public class ImagesController {
     }
 
     @Transactional
-    @PostMapping("/{id}")
+    @PostMapping("/{id}") //1
     public ResponseEntity<?> addImages(@PathVariable("id") Long productId, @Valid ImagesRequest imagesRequest, @AuthenticationPrincipal User user){
 
         Optional<Product> productOptional = productRepository.findById(productId);
-
+        //1
         if (productOptional.isEmpty()){
             return ResponseEntity.notFound().build();
         }
 
         Product product = productOptional.get();
-
+        //1
         if (product.getUser().equals(user)){
 
 

@@ -52,10 +52,10 @@ public class ShoppingController {
 
             shoppingRepository.save(newShopping);
 
-            email.send(newShopping.shoppingEmailFrom(), newShopping.shoppingEmailTo(), newShopping.shoppingEmailMessage());
+            email.send(newShopping.shoppingEmailFrom(), newShopping.emailAddressOwnerProduct(), newShopping.shoppingEmailMessage());
 
 
-            return ResponseEntity.status(HttpStatus.FOUND).body(gateway.uriResponse(newShopping.getId().toString()));
+            return ResponseEntity.status(HttpStatus.FOUND).body(newShopping.linkToGatewayPayment());
         }
 
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();

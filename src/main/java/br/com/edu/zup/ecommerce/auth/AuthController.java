@@ -1,7 +1,7 @@
 package br.com.edu.zup.ecommerce.auth;
 
 import br.com.edu.zup.ecommerce.token.TokenResponse;
-import br.com.edu.zup.ecommerce.token.TokenService;
+import br.com.edu.zup.ecommerce.token.Token;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,9 +19,9 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final AuthenticationManager authManager;
-    private final TokenService tokenService;
+    private final Token tokenService;
 
-    public AuthController(AuthenticationManager authManager, TokenService tokenService) {
+    public AuthController(AuthenticationManager authManager, Token tokenService) {
         this.authManager = authManager;
         this.tokenService = tokenService;
     }

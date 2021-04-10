@@ -1,8 +1,8 @@
 package br.com.edu.zup.ecommerce.config;
 
-import br.com.edu.zup.ecommerce.auth.AuthService;
+import br.com.edu.zup.ecommerce.auth.Auth;
+import br.com.edu.zup.ecommerce.token.Token;
 import br.com.edu.zup.ecommerce.token.TokenAuthFilter;
-import br.com.edu.zup.ecommerce.token.TokenService;
 import br.com.edu.zup.ecommerce.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,12 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
-    private final AuthService authService;
-    private final TokenService tokenService;
+    private final Auth auth;
+    private final Token tokenService;
     private final UserRepository userRepository;
 
-    public SecurityConfigurations(AuthService authService, TokenService tokenService, UserRepository userRepository) {
-        this.authService = authService;
+    public SecurityConfigurations(Auth auth, Token tokenService, UserRepository userRepository) {
+        this.auth = auth;
         this.tokenService = tokenService;
         this.userRepository = userRepository;
     }
@@ -43,8 +43,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authService).passwordEncoder(encoder());
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(auth).passwordEncoder(encoder());
     }
 
 
@@ -53,6 +53,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth").permitAll()
+                .antMatchers(HttpMethod.POST,"/notas-fiscais").permitAll()
+                .antMatchers(HttpMethod.POST,"/ranking").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()

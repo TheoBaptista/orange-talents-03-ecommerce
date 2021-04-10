@@ -23,6 +23,12 @@ public class Gateway {
     public Gateway() {
     }
 
+    public Gateway(EnumGateway type, String url, String path) {
+        this.type = type;
+        this.url = url;
+        this.path = path;
+    }
+
     public EnumGateway getEnumGateway() {
         return type;
     }
@@ -30,7 +36,7 @@ public class Gateway {
     public String getUrlGateway() {
         return url;
     }
-
+    //1
     public String uriResponse(String id) {
          return UriComponentsBuilder.fromUriString("?buyerId={id}&redirectUrl={urlRetorno}/{idShop}")
                  .host(this.url).scheme("https").buildAndExpand(id,this.path,id).toUriString();

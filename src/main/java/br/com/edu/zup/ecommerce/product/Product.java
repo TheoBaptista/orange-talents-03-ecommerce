@@ -1,18 +1,17 @@
 package br.com.edu.zup.ecommerce.product;
 
-import br.com.edu.zup.ecommerce.category.Category;
-import br.com.edu.zup.ecommerce.feature.ProductFeature;
-import br.com.edu.zup.ecommerce.feature.ProductFeatureDetailResponse;
+import br.com.edu.zup.ecommerce.product.category.Category;
+import br.com.edu.zup.ecommerce.product.feature.ProductFeature;
+import br.com.edu.zup.ecommerce.product.feature.ProductFeatureDetailResponse;
 import br.com.edu.zup.ecommerce.images.Image;
-import br.com.edu.zup.ecommerce.question.Question;
-import br.com.edu.zup.ecommerce.question.QuestionResponse;
-import br.com.edu.zup.ecommerce.review.Review;
-import br.com.edu.zup.ecommerce.review.ReviewResponse;
+import br.com.edu.zup.ecommerce.product.question.Question;
+import br.com.edu.zup.ecommerce.product.question.QuestionResponse;
+import br.com.edu.zup.ecommerce.product.review.Review;
+import br.com.edu.zup.ecommerce.product.review.ReviewResponse;
 import br.com.edu.zup.ecommerce.user.User;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -33,8 +32,8 @@ public class Product {
     private @Column(nullable = false) @CreationTimestamp LocalDate registerDate;
     @ManyToOne
     private @JoinColumn(nullable = false) Category category;
-    @ManyToMany
-    private @JoinColumn(nullable = false) List<ProductFeature> productFeatureList;
+    @OneToMany(cascade = CascadeType.PERSIST,mappedBy = "product")
+    private  List<ProductFeature> productFeatureList;
 
     private @NotNull @ManyToOne @JoinColumn(nullable = false)  User user;
 
@@ -53,13 +52,12 @@ public class Product {
 
     public Product(String name, @Positive @DecimalMin("10.00") BigDecimal price,
                    @Min(0) Integer quantity, @Length(max = 10000) String description,
-                   Category category, List<ProductFeature> productFeatureList, @NotNull User user) {
+                   Category category, @NotNull User user) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.description = description;
         this.category = category;
-        this.productFeatureList = productFeatureList;
         this.user = user;
     }
 
@@ -99,6 +97,10 @@ public class Product {
         return user;
     }
 
+    public String emailOwnerName(){
+        return this.user.getUsername();
+    }
+
     public List<Image> getImageList() {
         return imageList;
     }
@@ -119,18 +121,22 @@ public class Product {
         return questionList;
     }
 
+    //1
     public List<ProductFeatureDetailResponse> mapToProductFeatureDetailResponseList(){
         return this.productFeatureList.stream().map(ProductFeatureDetailResponse::new).collect(Collectors.toList());
     }
 
+    //1
     public List<String> mapToProductResponseImagesLink(){
         return this.imageList.stream().map(Image::getUri).collect(Collectors.toList());
     }
 
+    //1
     public List<QuestionResponse> mapToQuestionResponseList(){
        return this.questionList.stream().map(QuestionResponse::new).collect(Collectors.toList());
     }
 
+    //1
     public List<ReviewResponse> mapToReviewResponseList(){
         return this.reviewList.stream().map(ReviewResponse::new).collect(Collectors.toList());
     }
@@ -139,6 +145,7 @@ public class Product {
         return this.reviewList.size();
     }
 
+    //1
     public Boolean decreaseStock(Integer quantity) {
         if (quantity <= this.quantity) {
             this.quantity -= quantity;
